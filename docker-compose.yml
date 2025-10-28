@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  # 后端服务
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - DB_PATH=/app/data/daigou.db
+      - JWT_SECRET=${JWT_SECRET}
+      - AWS_REGION=${AWS_REGION}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - BEDROCK_MODEL_ID=${BEDROCK_MODEL_ID}
+    volumes:
+      - ./data:/app/data
+      - ./uploads:/app/uploads
+      - ./logs:/app/logs
+      - ./config:/app/config
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # 前端服务 (使用 nginx)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+
+  # 数据库备份服务
+  backup:
+    image: alpine:latest
+    volumes:
+      - ./data:/data
+      - ./backups:/backups
+    command: >
+      sh -c "
+        while true; do
+          echo 'Creating database backup...'
+          cp /data/daigou.db /backups/daigou_backup_$$(date +%Y%m%d_%H%M%S).db
+          find /backups -name '*.db' -mtime +7 -delete
+          sleep 86400
+        done
+      "
+    restart: unless-stopped
+
+volumes:
+  data:
+  uploads:
+  logs:
+  config:
+  backups:
