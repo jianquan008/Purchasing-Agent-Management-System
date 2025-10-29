@@ -1,10 +1,10 @@
-# 🛒 代购管理系统 (Daigou Management System)
+# 🛒 代购管理系统前端 (Daigou Management System Frontend)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-4.9+-blue.svg)](https://www.typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-18+-blue.svg)](https://reactjs.org/)
 
-一个功能完整的代购管理系统，集成了AWS Bedrock Claude OCR技术，支持智能收据识别、库存管理、数据分析等功能。
+代购管理系统的前端应用，连接到远程EC2后端服务，支持智能收据识别、库存管理、数据分析等功能。
 
 ## 系统概述
 
@@ -18,94 +18,43 @@
 
 ## 技术栈
 
-**后端:**
-- Node.js + TypeScript
-- Express.js
-- SQLite 数据库
-- AWS Bedrock Claude API
-- JWT 认证
-
-**前端:**
 - React + TypeScript
 - Vite 构建工具
 - Tailwind CSS
 - ECharts 图表库
 - PWA 支持
+- 连接远程EC2后端API
 
 ## 系统要求
 
 - Node.js 18+ 
 - npm 或 yarn
-- AWS 账户（用于 Bedrock Claude OCR）
+- 远程EC2后端服务运行中
 
 ## 快速开始
 
 ### 1. 克隆项目并安装依赖
 
 ```bash
-# 安装后端依赖
-cd backend
-npm install
-
 # 安装前端依赖
-cd ../frontend
 npm install
 ```
 
 ### 2. 配置环境变量
 
-在 `backend` 目录下创建 `.env` 文件：
+前端会自动连接到远程EC2后端：`http://54.204.91.227:4001`
 
-```env
-# 服务器配置
-PORT=3001
-NODE_ENV=development
-
-# 数据库配置
-DB_PATH=./database/daigou.db
-DB_MAX_CONNECTIONS=10
-DB_ACQUIRE_TIMEOUT=30000
-DB_IDLE_TIMEOUT=300000
-
-# JWT 配置
-JWT_SECRET=your-super-secret-jwt-key-change-in-production
-
-# AWS Bedrock 配置（OCR 功能需要）
-AWS_REGION=us-east-1
-AWS_ACCESS_KEY_ID=your-aws-access-key
-AWS_SECRET_ACCESS_KEY=your-aws-secret-key
-BEDROCK_MODEL_ID=anthropic.claude-3-sonnet-20240229-v1:0
-
-# 文件上传配置
-UPLOAD_DIR=./uploads
-MAX_FILE_SIZE=10485760
-
-# 配置加密密钥
-CONFIG_ENCRYPTION_KEY=your-config-encryption-key
-```
-
-### 3. 启动后端服务
+### 3. 启动前端服务
 
 ```bash
-cd backend
-npm run build
 npm start
 ```
 
-后端服务将在 `http://localhost:3001` 启动
+前端服务将在 `http://localhost:3000` 启动
 
-### 4. 启动前端服务
+### 4. 访问系统
 
-```bash
-cd frontend
-npm run dev
-```
-
-前端服务将在 `http://localhost:5173` 启动
-
-### 5. 访问系统
-
-打开浏览器访问 `http://localhost:5173`
+打开浏览器访问 `http://localhost:3000`
 
 **默认管理员账户:**
 - 用户名: `admin`
