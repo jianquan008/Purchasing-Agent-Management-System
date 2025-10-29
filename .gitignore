@@ -6,8 +6,6 @@ yarn-error.log*
 
 # Production builds
 /backend/dist/
-/frontend/dist/
-/frontend/build/
 
 # Environment variables
 .env
@@ -49,7 +47,6 @@ Thumbs.db
 # Process files
 *.pid
 backend.pid
-frontend.pid
 
 # SSL certificates
 *.pem
@@ -112,5 +109,3 @@ coverage/
 # Additional project files
 *.log
 backend.log
-frontend.log
-daigou-frontend-mac.tar.gz
