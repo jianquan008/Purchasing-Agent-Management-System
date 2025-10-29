@@ -12,7 +12,7 @@ if [ ! -d "backend/dist" ]; then
     exit 1
 fi
 
-if [ ! -d "frontend/dist" ]; then
+if [ ! -d "frontend/build" ]; then
     echo "❌ 前端未构建，请先运行 ./deploy.sh"
     exit 1
 fi

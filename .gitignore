@@ -108,3 +108,9 @@ coverage/
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
+
+# Additional project files
+*.log
+backend.log
+frontend.log
+daigou-frontend-mac.tar.gz

@@ -230,7 +230,7 @@ async function startServer() {
     // 验证AWS配置
     await validateAWSConfiguration();
 
-    const server = app.listen(PORT, () => {
+    const server = app.listen(Number(PORT), '0.0.0.0', () => {
       console.log(`服务器运行在端口 ${PORT}`);
       console.log(`环境: ${process.env.NODE_ENV || 'development'}`);
 
